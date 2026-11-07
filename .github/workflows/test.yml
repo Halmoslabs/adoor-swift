@@ -1,0 +1,22 @@
+# Runs the Swift package tests. The private monorepo does not run this job:
+# macOS minutes there cost about ten times a Linux minute. Public macOS minutes are free.
+
+name: Test
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+      - name: Unit tests
+        run: swift test
